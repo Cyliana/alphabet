@@ -1,6 +1,13 @@
 <?php
 
-$lettre["a"]    ="_________******__*____*__*____*__******__*____*__*____*_________"; 
+$lettre["a"]    ="________"
+                ."_******_"
+                ."_*____*_"
+                ."_*____*_"
+                ."_******_"
+                ."_*____*_"
+                ."_*____*_"
+                ."________"; 
 
 $lettre["m"]    ="________"
                 ."_*____*_"
@@ -75,6 +82,8 @@ function locateXY($x,$y)
     print("\033[".$y.";".$x."H");  
 }
 
+//====================== PREPARATION DE L'AFFICHAGE ============================
+
 for($l = 0 ; $l<8 ; $l++)
 {
     $lignes[$l] = '';
@@ -88,25 +97,44 @@ for($l = 0 ; $l<8 ; $l++)
     $lignes[$l] = str_replace("_",' ',$lignes[$l])."\n";
 }
 
+//====================== AFFICHAGE ET MOUVEMENT ============================
 
-$x = 4;
-$s = 1 ;
+$x = 2;     
+$s = 1 ; //le pas
 
 while(1==1)
 {
     for($l= 0;$l<8;$l++)
     {
-        locateXY($x,4+$l);
+        locateXY($x,2+$l);
         color($l);
         print($lignes[$l]); 
     }
-
+    //=========== CALCUL DU MOUVEMENT AVEC PAS =================
     $x = $x + $s;
+
     if($x ==10) $s =-1;
+
     if($x == 4) $s = 1;
-    usleep(100000);
+
+    usleep(200000);
 }
 
-
-
 ?>
+
+
+<!-- Changement de la couleur en utilisant la boucle d'incrémentation déjà existante.
+    
+
+for($l = 0 ; $l<8 ; $l++)
+{
+    $lignes[$l] = "\033[3".$l."m";
+
+    for($i = 0 ; $i<strlen($mot); $i++)
+    {
+        $caractere = $mot[$i];
+
+        $lignes[$l] .= substr($lettre[$caractere],$l*8,8);
+    }
+}
+ -->
